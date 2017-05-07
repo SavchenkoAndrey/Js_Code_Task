@@ -125,18 +125,6 @@ class Clock_V1_2 extends Clock {
         this.minTime();
     }
 
-    maxTime() {
-        if (this.time > 86400) {
-            this.time = 86400;
-        }
-    }
-
-    minTime() {
-        if (this.time < 0) {
-            this.time = 0;
-        }
-    }
-
     correctStartTime() {
         if (this.time > 86400) {
             this.time -= 86400;
@@ -204,6 +192,89 @@ class Clock_V_1_3 extends Clock_V1_2 {
         this.timer += 1;
     }
 
+    maxTime() {
+        if (this.changer) {
+            if (this.time > 86400) {
+                this.time = 86400;
+            }
+        } else {
+            if (this.counter > 86400) {
+                this.counter = 86400;
+            }
+        }
+    }
+
+    minTime() {
+        if (this.changer) {
+            if (this.time < 0) {
+                this.time = 0;
+            }
+        } else {
+            if (this.counter < 0) {
+                this.counter = 0;
+            }
+        }
+
+    }
+
+    increaseSec() {
+        if (this.changer) {
+            this.time += 1;
+            this.maxTime();
+        } else {
+            this.counter += 1;
+            this.maxTime();
+        }
+
+    }
+    decreaseSec() {
+        if (this.changer) {
+            this.time -= 1;
+            this.maxTime();
+        } else {
+            this.counter -= 1;
+            this.maxTime();
+        }
+    }
+
+    increaseMin() {
+        if (this.changer) {
+            this.time += 60;
+            this.maxTime();
+        } else {
+            this.counter += 60;
+            this.maxTime();
+        }
+    }
+    decreaseMin() {
+        if (this.changer) {
+            this.time -= 60;
+            this.minTime();
+        } else {
+            this.counter -= 60;
+            this.minTime();
+        }
+    }
+
+    increaseHour() {
+        if (this.changer) {
+            this.time += 3600;
+            this.maxTime();
+        } else {
+            this.counter += 3600;
+            this.maxTime();
+        }
+    }
+    decreaseHour() {
+        if (this.changer) {
+            this.time -= 3600;
+            this.minTime();
+        } else {
+            this.counter -= 3600;
+            this.minTime();
+        }
+    }
+
     convertToHour() {
         if (this.changer) {
             return parseInt(this.time / 3600);
@@ -245,6 +316,7 @@ class Clock_V_1_3 extends Clock_V1_2 {
         },1000);
         setTimeout(function () {
             clearInterval(timerID);
+            CurentClock.counter = 0;
         },CurentClock.counter)
     }
 
