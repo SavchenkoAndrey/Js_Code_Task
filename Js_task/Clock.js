@@ -262,7 +262,7 @@ class Clock_V_1_3 extends Clock_V1_2 {
 
 let ClockWithTimer = createClock_V1_3();
 
-console.log('\n Clock version 3\n');
+console.log('\nClock version 3\n');
 console.log(ClockWithTimer.toString());
 
 ClockWithTimer.SetTimerSec(10);
