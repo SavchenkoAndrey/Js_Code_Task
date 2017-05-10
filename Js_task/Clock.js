@@ -105,12 +105,14 @@ class Clock_V1_2 extends Clock {
     constructor() {
         super();
         this.light = true;
+        this.IntervalStartClock = null;
     }
 
     increaseMin() {
         this.time += 60;
         this.maxTime();
     }
+
     decreaseMin() {
         this.time -= 60;
         this.minTime();
@@ -120,6 +122,7 @@ class Clock_V1_2 extends Clock {
         this.time += 3600;
         this.maxTime();
     }
+
     decreaseHour() {
         this.time -= 3600;
         this.minTime();
@@ -131,8 +134,16 @@ class Clock_V1_2 extends Clock {
         }
     }
 
+    StartClock() {
+        this.IntervalStartClock = setInterval(function () {
+            this.time += 1;
+        }, 1000)
+    }
+
     resetTime() {
         this.time = 0;
+        clearInterval(this.IntervalStartClock);
+        this.IntervalStartClock = null;
     }
 
     changeLedLight() {
@@ -155,8 +166,13 @@ class Clock_V1_2 extends Clock {
 let ClockWithLed = createClock_V1_2();
 console.log('\nClock Version 2\n');
 console.log(ClockWithLed.toString());
+ClockWithLed.StartClock();
 
-ClockWithLed.resetTime();
+setTimeout(function () {
+    console.log('\nClock v2 Stop\n' + ClockWithLed.toString() + '\nEnd');
+    ClockWithLed.resetTime();
+}, 5000);
+
 ClockWithLed.changeLedLight();
 console.log(ClockWithLed.toString());
 
@@ -188,8 +204,12 @@ class Clock_V_1_3 extends Clock_V1_2 {
         this.counter = 0;
     }
 
-    increaseSecTimer() {
+    /*increaseSecTimer() {
         this.timer += 1;
+    }*/
+
+    decreaseSecTimer() {
+        this.timer -= 1;
     }
 
     maxTime() {
@@ -304,6 +324,7 @@ class Clock_V_1_3 extends Clock_V1_2 {
         return `Timer: ${this.convertToHour().zeroFix()} : ${this.convertToMin().zeroFix()} : ${this.convertToSec().zeroFix()}`;
     }
 
+
     SetTimerSec(NewValue) {
         this.counter = parseInt(NewValue * 1000 + 1000);
     }
@@ -311,12 +332,14 @@ class Clock_V_1_3 extends Clock_V1_2 {
     StartTimer() {
         let CurentClock = this;
         CurentClock.changer = false;
+        CurentClock.timer = parseInt(CurentClock.counter / 1000);
         let timerID = setInterval(function () {
-            CurentClock.increaseSecTimer();
+            CurentClock.decreaseSecTimer();
         },1000);
         setTimeout(function () {
             clearInterval(timerID);
             CurentClock.counter = 0;
+            CurentClock.timer = 0;
         },CurentClock.counter)
     }
 
@@ -337,11 +360,11 @@ let ClockWithTimer = createClock_V1_3();
 console.log('\nClock version 3\n');
 console.log(ClockWithTimer.toString());
 
-ClockWithTimer.SetTimerSec(10);
+ClockWithTimer.SetTimerSec(5);
 ClockWithTimer.StartTimer();
 let intervalNewTimer = setInterval(function () {
     console.log(ClockWithTimer.DisplayTimer().toString());
 }, 1000);
 setTimeout(function () {
     clearInterval(intervalNewTimer)
-}, ClockWithTimer.counter);
+}, ClockWithTimer.counter + 1000);
