@@ -3,8 +3,8 @@ class Setting {
         this.State = 'Tune';
     }
 
-    checkup() {
-        return this.State === 'Tune';
+    static checkup(Object) {
+        return Object.State === 'Tune';
     }
 
     static Changer(changer) {
@@ -18,7 +18,7 @@ class Setting {
     }
 
     toString() {
-        if (this.checkup()) {
+        if (Setting.checkup()) {
             return '\nPlease choose:\n ' +
                 '1. "Clock"\n ' +
                 '2. "Timer"\n';
