@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/test.css" />
+    <title>Задача №7. Добавление href в конец ссылки.</title>
+    <div>
+        1. Сделайте кнопку, по нажатию на которую всем ссылкам в конец добавится их href в круглых скобках.
+        <br>Пример:
+        <br>было <a href="http://google.by">ссылка</a>
+        <br>станет <a href="http://google.by">ссылка (http://google.by)</a><br>
+
+        <br>Повторное нажатие на кнопку не должно приводить к повторному добавлению, равно как и первое если у ссылки уже есть в конце ее href:
+        <br>было <a href="http://google.by">ссылка (http://google.by)</a>
+        <br>станет <a href="http://google.by">ссылка (http://google.by)</a>
+        <br>- ничего не поменяется.
+
+        <br>2. Сделайте так, чтобы код работал только со ссылками на чужие сайты:
+
+        <br>было <a href="http://google.by">ссылка</a>
+        <br>станет <a href="http://google.by">ссылка (http://google.by)</a>
+
+        <br>не поменяются
+        <br><a href="http://mysite.by">ссылка</a>
+        <br><a href="/">ссылка</a>
+        <br><a href="test.php">ссылка</a>
+        <br>и так далее - все, что ведет на наш сайт.
+    </div>
+    <div>
+        <input type="button" value="Исправить ссылку" onclick="href_edit()">
+    </div>
+</head>
+<body>
+    <script>
+        function href_edit() {
+            for (var i = 0; i < document.links.length; i++) {
+                var a = document.links[i];
+                if (a.getAttribute('href').search("http://mysite.by") == -1 && a.getAttribute('href') != '/' && a.getAttribute('href').search("test.php") == -1)
+                {
+                    if (a.innerHTML.search("http://") == -1) {
+                        a.innerHTML = a.innerHTML + ' (' + a.getAttribute('href') + ')';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

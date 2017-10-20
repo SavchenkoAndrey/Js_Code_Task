@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/test.css" />
+    <title>Задача №6. Максимальное число.</title>
+    <div>
+        Дан массив чисел. Напишите скрипт, который найдет максимальное из этих чисел.
+    </div>
+    <br>
+    <div id="number_1">
+        Здесь будет число и массив.
+    </div>
+    <div>
+        <input type="button" value="Найти максимальное число" onclick="max_count()">
+    </div>
+</head>
+<body>
+    <script>
+        function max_count() {
+            var a = [4, 5, 6, 1, 2, 61, 21, 1, 99, 13, 12], max = a[0], str = a+'<br>';
+            for (var i = 1; i < a.length; i++) {
+                if (max < a[i]) {
+                    max = a[i];
+                }
+            }
+            str += "Максимальное число: " + max;
+            document.getElementById('number_1').innerHTML = str;
+        }
+    </script>
+</body>
+</html>

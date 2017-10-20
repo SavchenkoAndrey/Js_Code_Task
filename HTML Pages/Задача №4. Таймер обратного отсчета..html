@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/test.css" />
+    <title>Задача №4. Таймер обратного отсчета.</title>
+    <div>
+        Сделайте таймер обратного отсчета, который считает от заданного в атрибуте data-timer числа, пока не дойдет до нуля. Когда доходит до нуля - выводит сообщение о том, что отсчет закончен.
+
+        <br><br><br>Например, data-timer=10, каждую секунду на странице меняется число - 10, 9, 8... и так далее до нуля.
+    </div><br><br>
+    <div  data-timer="10" id="time_1">10</div>
+    <div><button onclick="timer_start(getElementById('time_1'))">Начать отчет</button></div>
+</head>
+<body>
+    <script>
+        function timer_start(e) {
+            var count = e.getAttribute('data-timer');
+            var timer = setInterval( function () {
+                e.innerHTML = count;
+                count--;
+                if(count <= 0) {
+                    clearInterval(timer);
+                    e.innerHTML = 'Отсчет закончен!<br>Повторить?';
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

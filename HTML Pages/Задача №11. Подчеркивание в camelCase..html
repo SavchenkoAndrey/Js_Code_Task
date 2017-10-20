@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача №11. Подчеркивание в camelCase.</title>
+    <div>
+        Преобразуйте текст такого вида var_test_start в такой вид varTestStart (кто не знает - он называется camelCase).
+    </div>
+    <div id="id_1"></div>
+    <input type="button" value="Run function" onclick="document.getElementById('id_1').innerHTML = text.del_()">
+</head>
+<body>
+    <script>
+        var text = "hello_world_test_";
+        document.getElementById('id_1').innerHTML = text;
+        //Прототип для удаления из строки всех подчеркиваний, между символами и в конце
+        String.prototype.del_ = function () {
+            return this.replace(/_(.?)/g, function(f, $1) { return $1.toUpperCase() });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/test.css" />
+    <title>Задача №3. Запрет ввода символов.</title>
+    <div><br>Запретите водить некоторые символы в инпут (например, a, b, c, d, e). Любые другие символы должны вводится,
+        <br>а эти просто не будут появлятся, сколько бы мы ни жали на них.
+
+        <br>P.S. Хитрый прием с копировать и вставить из буфера обмена тоже нужно отловить, равно как и другие обходные пути.</div>
+    <div><br>Нельзя ввести символы кирилицы и . или , </div>
+    <div><br><input type="text" id="txt_1" class="input_log" title="Логин" onkeyup="text_dell(this)" placeholder="Логин" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Логин'"></div>
+    <div><br><input type="text" id="txt_2" class="input_pass" title="Пароль"  onkeyup="text_dell(this)" placeholder="Пароль" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Пароль'"></div>
+</head>
+<body>
+<script>
+    function text_dell(e) {
+        var txt = e.value;
+        var rep = /[а-яА-Я|\s|.|,]/g;
+        txt = txt.replace(rep, '');
+        e.value = txt;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача №9. Перемена состояний чекбоксов.</title>
+    <div>
+        Сделайте все неотмеченные чекбоксы отмеченными и наоборот (то есть все чекбоксы должны сменить свое состояние).
+    </div>
+    <br>
+    <br>
+</head>
+<body>
+    <script>
+        var list = {}; //Переменная для хранения обьектов
+        //Функция для создания чекбоксов и их рандомного стартового значения
+        list.createChekbox = function (a) {
+            a.appendChild(this);
+            this.setAttribute('type', 'checkbox');
+            this.checked = Math.floor(Math.random() * 2) == 1;
+        };
+        //Функция для атрибутов, button
+        /* a список типов атрибутов
+        ** b список параметров атрибутов */
+        function atribute(a,b) {
+            for (var i = 0; i < a.length; i++) {
+                this.setAttribute(a[i], b[i]);
+            }
+        }
+        //Функция для инвертирования состояния всех чекбоксов на странице
+        function invert_checked() {
+            var key;
+            var nodes = document.getElementsByTagName('input');
+            for (key in nodes) {
+                if (nodes[key].type == 'checkbox') {
+                    nodes[key].checked = nodes[key].checked == 0 ? 1 : 0;
+                }
+            }
+        }
+        //Создаем 10 чекбоксов, с рандомным состоянием
+        for (var i = 0; i < 10; i++){
+            list.createChekbox.call(document.createElement('input'), document.body);
+        }
+        //Создаем клавишу
+        document.body.appendChild(list.button = document.createElement('input'));
+        //Назначаем атрибуты button, включая событие для функции invert_checked()
+        atribute.call(list.button, ['type', 'value', 'onclick'],
+            ['button', 'Run function', 'invert_checked();']);
+    </script>
+</body>
+</html>

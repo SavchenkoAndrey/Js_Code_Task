@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача №1. Заглавные буквы.</title>
+    <div>Сделайте 2 скрипта, которые:</div>
+    <div id="id_1">1. сделает заглавной первую букву строки.</div>
+    <div id="id_2">фыв 2. сделает заглавной первую букву каждого слова строки.</div>
+</head>
+<body>
+<script>
+    //Прототип для первой буквы в строке
+    String.prototype.capitalizeFirstLetter = function () {
+        return this.replace( /(^|\s)([а-я])/ , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+    };
+    //Прототип для всех первых букв в словах
+    String.prototype.capitalize = function(){
+        return this.replace( /(^|\s)([а-я])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+    };
+    onload = function UpperCase() {
+    document.getElementById('id_1').innerHTML = document.getElementById('id_1').innerHTML.capitalizeFirstLetter();
+       document.getElementById("id_2").innerHTML = document.getElementById("id_2").innerHTML.capitalize();
+};
+</script>
+</body>
+</html>

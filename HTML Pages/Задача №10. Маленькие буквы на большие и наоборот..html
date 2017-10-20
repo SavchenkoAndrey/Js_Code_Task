@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача №10. Маленькие буквы на большие и наоборот.</title>
+    <div>
+        Дан текст. Сделайте в нем все маленькие буквы большими и наоборот.
+    </div>
+    <br>
+</head>
+<body>
+<script>
+    var list = {};
+    //Прототип для изменения регистра букв, на малкнькие или большие
+    String.prototype.conveteText = function () {
+        return this.replace( /[а-я]|[А-Я]/g , function (p1) {
+            return p1 ==  p1.toLowerCase() ? p1.toUpperCase() : p1.toLowerCase();
+        });
+    };
+    /* Функция для атрибутов, button
+    ** a список типов атрибутов
+    ** b список параметров атрибутов */
+    function atribute(a, b) {
+        for (var i = 0; i < a.length; i++) {
+            this.setAttribute(a[i], b[i]);
+        }
+    }
+    //Функция для вызова
+    function note() {
+        list.div = document.getElementsByTagName('div');
+        for (var key = 0; key < list.div.length; key++) {
+            list.div[key].innerHTML = list.div[key].innerHTML.conveteText();
+        }
+    }
+    //Создаем клавишу
+    document.body.appendChild(list.button = document.createElement('input'));
+    //Назначаем атрибуты button, включая событие для функции note()
+    atribute.call(list.button, ['type', 'value', 'onclick'],
+        ['button', 'Run function', 'note();']);
+</script>
+</body>
+</html>

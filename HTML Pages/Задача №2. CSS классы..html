@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../css/test.css" />
+    <title>Задача №2. CSS классы.</title>
+    <div>Сделайте следующие функции на чистом JavaScript (без jQuery):
+        <br>1. addClass(элемент, класс) - добавляет элементу указанный класс, не трогая остальных.
+        <br>2. removeClass(элемент, класс) - удаляет указанный класс у элемента.
+        <br>3. toggleClass(элемент, класс) - удаляет класс, если он есть, добавляет его, если нет.<br><br><br></div>
+    <div class="" id="D_1"> First test</div>
+    <div class="Dev" id="D_2"> Twice test</div>
+    <div class="Dev" id="D_3"> Three test</div>
+    <div class="" id="D_4"> Four test</div>
+</head>
+<body>
+    <script>
+        function AddClass(element, cls) {
+            var elem = document.getElementById(element);
+            elem.classList.add(cls);
+        };
+        function DeleteClass(element, cls) {
+            var elem = document.getElementById(element);
+            elem.classList.remove(cls);
+        };
+
+        function ToggleClass(element, cls) {
+            var elem = document.getElementById(element);
+            if (elem.classList.contains(cls))
+                elem.classList.remove(cls);
+            else elem.classList.add(cls);
+        };
+        onload = function () {
+            AddClass('D_1', 'Dev');
+            DeleteClass('D_2', 'Dev');
+            ToggleClass('D_3', 'Dev');
+            ToggleClass('D_4', 'Dev');
+        };
+    </script>
+</body>
+</html>

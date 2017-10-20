@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача №12. Сумма элементов двух массивов.</title>
+    <div>
+        Даны два массива, к примеру
+        <br/>[1,2,3]
+        <br/>[4,5,6]
+        <br/><br/>Создайте новый массив, заполненный суммами соответствующих элементов, то есть [1+4, 2+5, 3+6] = [5, 7, 9].
+
+        <br/><br/>Скрипт должен работать для любых массивов, даже если их длина не одинакова (подумайте, что делать в этом случае).
+    </div>
+</head>
+<body>
+<script>
+        var list = {};
+        //Функция для атрибутов, button
+        function attribute() {
+            for (var i = 0; i < list.atritype.length; i++) {
+                this.setAttribute(list.atritype[i], list.atrivalue[i]);
+            }
+            delete list.atritype; delete list.atrivalue;
+        }
+        //Функция для сумы двух массивов, которые она получает, возвращает результат
+        //Работает если массивы не равные
+        list.Sum = function (first, two) {
+            var arr = [], i, l = first.length;
+            //Если второй массив больше, присваиваем ему его длину
+            if (l < two.length) l = two.length;
+                for (i = 0; i < l; i++){
+                    arr[i] = 0;
+                    if (first[i] != null)
+                    arr[i] += first[i];
+                    if (two[i] != null)
+                    arr[i] += two[i];
+                    }
+            return arr;
+        };
+        function note() {
+            if (list.div == null) {
+                list.div = document.createElement('div');
+                document.body.appendChild(list.div);
+                //Записываем для удобства наше значение в div поле value
+                list.div.value = list.Sum(list.two, list.first);
+                list.div.innerHTML = list.div.value;
+                list.button.value = 'Запустить еще раз (a+b)+c';
+                list.button.setAttribute('onclick', (list.button.getAttribute('onclick') + ';this.parentNode.removeChild(this)'));
+            }
+            else {
+                list.div.innerHTML = '<br/>';
+                list.div.innerHTML += list.Sum(list.div.value, list.three);
+
+            }
+        }
+        //Начало выполнения скрипта
+        list.first = [1,2,3];
+        list.two = [4,5,6];
+        list.three = [1,45,21,11];
+        document.getElementsByTagName('div')[0].innerHTML += '<br/> a=' + list.first + '<br/> b-' + list.two + '<br/> c=' + list.three;
+        //Создаем клавишу
+        document.body.appendChild(list.button = document.createElement('input'));
+        list.atritype = ['type', 'value', 'onclick'];
+        list.atrivalue = ['button', 'Запустить a+b', 'note()'];
+        attribute.call(list.button);
+    </script>
+</body>
+</html>

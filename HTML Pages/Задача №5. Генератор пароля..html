@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/test.css" />
+    <title>Задача №5. Генератор пароля.</title>
+</head>
+<body>
+<div>Напишите скрипт, который генерирует случайную строку. В строке должны быть маленькие и большие латинские буквы, цифры и подчеркивание.<br><br><br><br></div>
+<table class="Table_PassGen">
+    <tr>
+        <th>
+            <input type="checkbox" id="checkbox1" class="checking" />
+        </th>
+        <th>
+            <input type="checkbox" id="checkbox2" class="checking" />
+        </th>
+        <th>
+            <input type="checkbox" id="checkbox3" class="checking" />
+        </th>
+    </tr>
+    <tr>
+        <th>Буквы</th>
+        <th>Символ "_"</th>
+        <th>Цифры</th>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div id="output_value">Длина: 15</div>
+            <input type="range" name="slider_1" min="3" max="25" onchange="length_str(this)" onload="this.value = 15">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <input type="text" id="in_1" length='15' size="28" maxlength="25" onclick="this.select();">
+            <input type="button" value="Сгенирировать пароль" onclick="GeneratePass(document.getElementById('in_1'))">
+        </td>
+    </tr>
+</table>
+<script>
+    function length_str(e) {
+        document.getElementById('in_1').setAttribute('length', e.value);
+        document.getElementById('output_value').innerHTML = 'Длина: ' + e.value;
+    }
+
+    function GeneratePass(a) {
+        var str = [],
+                str_out = '',
+                num, j = 0,
+                random_char = 0,
+                count_timer = 5;
+        if (document.getElementById('checkbox3').checked) {
+            str[j] = '0123456789';
+            j++
+        }
+        if (document.getElementById('checkbox2').checked) {
+            str[j] = '_';
+            j++
+        }
+        if (document.getElementById('checkbox1').checked) {
+            str[j] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            j++
+        }
+        var timer = setInterval(function() {
+            for (var i = 0; i < a.getAttribute('length'); i++) {
+                /* ~~ Операция округления */
+                num = ~~(Math.random() * j);
+                random_char = ~~(Math.random() * str[num].length);
+                str_out += str[num][random_char];
+            }
+            a.value = str_out;
+            str_out = '';
+            if (count_timer <= 0) {
+                clearInterval(timer);
+            }
+            count_timer--;
+        }, 100);
+    }
+</script>
+</body>
+</html>

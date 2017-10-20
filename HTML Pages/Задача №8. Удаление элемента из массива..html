@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача №8. Удаление элемента из массива.</title>
+    <div>
+        Дан массив. Напишите функцию, которая будет удалять элемент из массива по его тексту.
+        <br>
+        <br>
+        Пример: arr = [1,2,3,4,3,3]. Удалим все элементы с содержимым 3 func(arr, 3).
+    </div>
+</head>
+<body>
+<script>
+    //переменная для хранения данных
+    var list = {};
+    list.arr = [3,1,2,3,4,3,3];
+    /* функция для подключения созданных елементов в тело(body) документа.
+    ** a место подключения элемента */
+    function appendChild_obj(a) {
+        a.appendChild(this);
+    }
+    //Функция для атрибутов, button
+    /* a список типов атрибутов
+     ** b список параметров атрибутов */
+    function atribute(a,b) {
+        for (var i = 0; i < a.length; i++) {
+            this.setAttribute(a[i], b[i]);
+        }
+    }
+    //Функция для удаления елементов из массива, при этом он преобразуеться в string
+    function del_elem (arr, elem){
+        arr = String(arr);
+        var reg = new RegExp( elem + ',|' + ',' + elem, 'g');
+        arr = arr.replace(reg, '');
+        return arr;
+    }
+    //Функция для операций вывода
+    function note() {
+        list.div.innerHTML = list.arr + '<br>Массив после операций<br>' + del_elem(list.arr, 3);
+    }
+    appendChild_obj.call(list.button = document.createElement('input'), document.body);
+    atribute.call(list.button, ['type', 'value', 'onclick'],
+        ['button', 'Run function', 'note();this.parentNode.removeChild(this);']);
+    appendChild_obj.call(list.div = document.createElement('div'), document.body);
+</script>
+</body>
+</html>
