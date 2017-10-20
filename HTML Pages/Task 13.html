@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Page</title>
+    <script src="../Js_task/Task_13.js"></script>
+    <script src="../Js_task/SimpleMetods.js"></script>
+    <link rel="stylesheet" href="../css_task/main.css">
+</head>
+<body>
+    <input
+            value = "Please enter your text"
+            onclick="this.value = ''" id="input_1" title="Select text"
+            onblur="if(this.value === '')this.value = 'Please enter your text'"
+            size="50" maxlength="50">
+    <input
+            value = "Please enter id element"
+            onclick="this.value = ''" id="input_2" title="Select your id"
+            onblur="if(this.value === '')this.value = 'Please enter id element'"
+            size="20" maxlength="3">
+    <br>
+    <input
+            value = "Please enter your code"
+            onclick="this.value = ''" id="input_3" title="Select code"
+            onblur="if(this.value === '')this.value = 'Please enter your code'"
+            size="50" maxlength="50">
+    <br>
+    <button onclick="initDiv(document.body);">Create Div Element</button>
+    <button onclick="CreateNewCodeDeclaration(document.getElementById('input_3').value);">Add Code</button>
+
+    <script>
+        const debugState = true;
+    </script>
+</body>
+</html>
