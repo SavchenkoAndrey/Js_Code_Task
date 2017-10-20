@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+</head>
+<body>
+    <script>
+        function ListElement(value, next, previous) {}
+
+        ListElement.prototype = {
+            _setNext: function(next) {
+                this._next = next;
+            },
+            _getNext: function() {
+                return this._next;
+            },
+            _setPrev: function(prev) {
+                this._prev = prev;
+            },
+            _getPrev: function() {
+                return this._prev;
+            },
+            _setValue: function (value) {
+                this.value = value;
+                return this._getValue();
+            },
+            _getValue: function () {
+                return this.value;
+            },
+            _flip: function (b) {
+                if (this != b) {
+                    var a = null;
+                    if (this._getPrev() == null && this._getNext() == b && b._getNext() != null) {
+                        //Меняем все prev
+                        b._setPrev(null);
+                        this._setPrev(b);
+                        //Меняем все next
+                        this._setNext(b._getNext());
+                        this._getNext()._setPrev(this);
+                        b._setNext(this);
+                    }
+                    else if (b._getPrev() == null && b._getNext() == this && this._getNext() != null) {
+                        //Меняем все prev
+                        this._setPrev(null);
+                        b._setPrev(this);
+                        //Меняем все next
+                        b._setNext(this._getNext());
+                        b._getNext()._setPrev(b);
+                        this._setNext(b);
+                    }
+                    else if (this._getPrev() == null && this._getNext() != null && b._getPrev() != null && b._getNext() != null) {
+                        //Меняем все prev
+                        this._setPrev(b._getPrev());
+                        this._getPrev()._setNext(this);
+                        b._setPrev(null);
+                        //Меняем все next
+                        a = b._getNext();
+                        b._setNext(this._getNext());
+                        b._getNext()._setPrev(b);
+                        this._setNext(a);
+                        a._setPrev(this);
+                    }
+                    else if (b._getPrev() == null && b._getNext() != null && this._getPrev() != null && this._getNext() != null) {
+                        //Меняем все prev
+                        b._setPrev(this._getPrev());
+                        b._getPrev()._setNext(b);
+                        this._setPrev(null);
+                        //Меняем все next
+                        a = this._getNext();
+                        this._setNext(b._getNext());
+                        this._getNext()._setPrev(this);
+                        b._setNext(a);
+                        a._setPrev(b);
+                    }
+                    else if (this._getPrev() != null && this._getNext() != null && b._getPrev() != null && b._getNext() != null && this._getNext() != b && this._getPrev() != b) {
+                        a = b._getPrev();
+                        b._setPrev(this._getPrev());
+                        b._getPrev()._setNext(b);
+                        this._setPrev(a);
+                        a._setPrev(this);
+
+                        a = b._getNext();
+                        b._setNext(this._getNext());
+                        b._getNext()._setPrev(b);
+                        this._setNext(a);
+                        a._setPrev(this);
+                    }
+                    else if (b._getPrev() != null && b._getNext() != null && this._getPrev() != null && this._getNext() != null && this._getNext() == b) {
+                        this._setNext(b._getNext());
+                        this._getNext()._setPrev(this);
+                        b._setNext(this);
+
+                        b._setPrev(this._getPrev());
+                        b._getPrev()._setNext(b);
+                        this._setPrev(b);
+                    }
+                    else if (this._getPrev() != null && this._getNext() != null && b._getPrev() != null && b._getNext() != null && b._getNext() == this) {
+                        b._setNext(this._getNext());
+                        b._getNext()._setPrev(b);
+                        this._setNext(b);
+
+                        this._setPrev(b._getPrev());
+                        this._getPrev()._setNext(this);
+                        b._setPrev(this);
+                    }
+                    else if ((this._getNext() == b && this._getPrev() != null && b._getNext() == null) || (this._getNext() != null && this._getPrev() != null && b._getNext() == null && b._getPrev() != null)) {
+                        b._setNext(this._getNext());
+                        b._getNext()._setPrev(b);
+                        this._setNext(null);
+
+                        a = b._getPrev();
+                        b._setPrev(this._getPrev());
+                        b._getPrev()._setNext(b);
+                        this._setPrev(a);
+                        a._setNext(this);
+                    }
+                    else if ((b._getNext() == this && b._getPrev() != null && this._getNext() == null) || (b._getNext() != null && b._getPrev() != null && this._getNext() == null && this._getPrev() != null) ) {
+                        this._setNext(b._getNext());
+                        this._getNext()._setPrev(this);
+                        b._setNext(null);
+
+                        a = this._getPrev();
+                        this._setPrev(b._getPrev());
+                        this._getPrev()._setNext(this);
+                        b._setPrev(a);
+                        a._setNext(b);
+                    }
+                    return 'Done! this -> b and b -> this'
+                    }
+                    else return 'Please enter different elements!'
+            },
+            _cut: function (end) {
+                /* Если элементы не равные */
+                if (this != end) {
+                    /* Если начало имееет ссылку предыдущего null */
+                    if (this._getPrev() == null && end._getNext() != null) {
+                        end._getNext()._setPrev(null);
+                        end._getNext()._setNext(end._getNext()._getNext());
+                    }
+                    /* Если начало имеет ссылку на предыдущий и конец тоже */
+                    else if (this._getPrev() != null && end._getNext() != null) {
+                        this._getPrev()._setNext(end._getNext());
+                        end._getNext()._setPrev(this._getPrev());
+                    }
+                    /* Если начало имеет ссылку на предыдущий, а конец на null */
+                    else if (this._getPrev() != null && end._getNext() == null) {
+                        this._getPrev()._setNext(null);
+                    }
+                    return 'Del start -> end'
+                }
+                /* Удаляет эелемент из списка, если мы указали его */
+                else if (this == end) {
+                    /* Если элемент первый в списке */
+                    if (this._getPrev() == null && this._getNext() != null) {
+                        this._getNext()._setPrev(null);
+                    }
+                    /* Если элемент в середине списка */
+                    else if (this._getPrev() != null && this._getNext() != null){
+                        this._getNext()._setPrev(this._getPrev());
+                        this._getPrev()._setNext(this._getNext());
+                    }
+                    /* Если элемент последний в списке */
+                    else if (this._getPrev() != null && this._getNext() == null) {
+                        this._getPrev()._setNext(null);
+                    }
+                    return 'Del this!'
+                }
+            }
+        };
+        /* Фуцнкция для поиска значения в связном списке, принимает
+        *  Первый аргумент для значение для поиска, второй начальный
+        *  элемент связного списка */
+        function find(value, direction) {
+            var find = direction;
+            if (find._getNext() != null || find._getPrev() != null) {
+                /* Если prev первого элемента поиска равен null */
+                if(find._getPrev() == null && find._getNext() != null){
+                    while (direction != null) {
+                        if (direction._getValue() == value) {
+                            return direction;
+                        }
+                        direction = direction._getNext();
+                    }
+                }
+                /* Если prev и next первого элемента поиска не равен null */
+                else if (find._getPrev() != null && find._getNext() != null) {
+                    while (direction != null) {
+                        if (direction._getValue() == value) {
+                            return direction;
+                        }
+                        direction = direction._getNext();
+                    }
+                    direction = find;
+                    while (direction != null) {
+                        if (direction._getValue() == value) {
+                            return direction;
+                        }
+                        direction = direction._getPrev();
+                    }
+                }
+                /* Если next первого элемента поиска равен null */
+                else if (find._getPrev() != null && find._getNext() == null) {
+                    while (direction != null) {
+                        if (direction._getValue() == value) {
+                            return direction;
+                        }
+                        direction = direction._getPrev();
+                    }
+                }
+                return 'The search has not given any results!'
+            }
+            else return 'Are not present elements for search!'
+        }
+
+        var element1 = new ListElement();
+        var element2 = new ListElement();
+        var element3 = new ListElement();
+        var element4 = new ListElement();
+
+        element1._setNext(element2);
+        element2._setNext(element3);
+        element3._setNext(element4);
+        element4._setNext(null);
+        element1._setPrev(null);
+        element2._setPrev(element1);
+        element3._setPrev(element2);
+        element4._setPrev(element3);
+        element1.value = 1;
+        element2.value = 2;
+        element3.value = 3;
+        element4.value = 4;
+        var element5 = new ListElement();
+        element5._setNext(null);
+        element5._setPrev(null);
+    </script>
+</body>
+</html>
