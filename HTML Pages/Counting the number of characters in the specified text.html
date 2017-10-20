@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подсчет числа символов</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <button onclick="document.getElementsByName('result')[0].innerHTML = null; calc(1)">UA</button>
+    <button onclick="document.getElementsByName('result')[0].innerHTML = null; calc(2);">RU</button>
+	<input  value="Введите здесь текст" size="30" id="inputTxt">
+    <div name="result"></div>
+    <script>
+        var alphabet = null, chosenText = null, E = null /*S = ''*/;
+        var currentletter = 0, j = 0, resultPage = document.getElementsByName('result')[0];
+        /*S = document.getElementById('ua').innerHTML;
+        S.replace(/[]/g, '');
+        onload = function () {
+          resultPage.innerHTML = S;
+        };*/
+        function calc(a) {
+            var i = 0;
+            if (a == 1) {
+            	chosenText = $("#inputTxt").val();
+
+                alphabet = ['а','А','б','Б','в','В','г','Г','ґ','Ґ','д','Д','е','Е','є','Є','ж','Ж','з','З','и','И','і','І','ї','Ї','й','Й','к','К','л','Л','м','М','н','Н','о','О','п','П','р','Р','с','С','т','Т','у','У','ф','Ф','х','Х','ц','Ц','ч','Ч','ш','Ш','щ','Щ',' ','.'];
+                /*E = ['A','A','B','B','V','V','G','G','J','J','D','D','E','E','Q','Q','3','3','Z','Z','U','U','I','I','1','1','2','2','K','K','L','L','M','M','H','H','O','O','4','4','P','P','C','C','T','T','Y','Y','F','F','X','X','5','5','6','6','7','7','8','8',' ','.'];*/
+                for(i = 0; i < alphabet.length; i++){
+                    currentletter = 0;
+                        for(j = 0; j < chosenText.length; j++ ) {
+                            if(alphabet[i] == chosenText[j]) {
+                                currentletter++
+                            }
+
+                }
+                	if (currentletter !== 0)
+                    resultPage.innerHTML += alphabet[i] + ' = ' + currentletter + "</br>";
+            }
+        }
+        else {
+                chosenText =  $("#inputTxt").val();
+                alphabet = ['а','А','б','Б','в','В','г','Г','д','Д','ё','Ё','е','Е','ж','Ж','з','З','и','И','й','Й','к','К','л','Л','м','М','н','Н','о','О','п','П','р','Р','с','С','т','Т','у','У','ф','Ф','х','Х','ц','Ц','ч','Ч','ш','Ш','щ','Щ','ъ','Ъ','ы','Ы','ь','Ь','э','Э','ю','Ю','я','Я',' ','.'];
+                for(i = 0; i < alphabet.length; i++){
+                    currentletter = 0;
+                    for(j = 0; j < chosenText.length; j++ ) {
+                        if(alphabet[i] == chosenText[j]) {
+                            currentletter++
+                        }
+                    }
+                    if (currentletter !== 0)
+                    resultPage.innerHTML += alphabet[i] + ' = ' + currentletter + "</br>";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
